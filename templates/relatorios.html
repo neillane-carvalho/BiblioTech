@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>BiblioTech - Relatórios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #FCE4EC;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        header {
+            background-color: #C2185B;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #880E4F;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .relatorios {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #FFCDD2;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .relatorios p {
+            margin-bottom: 10px;
+        }
+
+        .relatorios .btn {
+            padding: 10px 20px;
+            background-color: #880E4F;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .relatorios .btn:hover {
+            background-color: #C2185B;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Relatórios</h1>
+    </header>
+    <div class="container">
+        <div class="relatorios">
+            <p>Número de livros disponíveis: {{ livros_disponiveis }}</p>
+            <p>Número de livros emprestados: {{ livros_emprestados }}</p>
+            <a href="{{ url_for('index') }}" class="btn">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta Acervo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FCE4EC;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+	    background-color: #FFC0CB;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #880E4F;
+            color: white;
+        }
+
+        .status-disponivel {
+            color: green;
+        }
+
+        .status-emprestado {
+            color: red;
+        }
+
+        .btn-remover {
+            background-color: #FF4081;
+            color: white;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-remover:hover {
+            background-color: #F50057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Consulta Acervo</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livro in livros %}
+                <tr>
+                    <td>{{ livro.id }}</td>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td class="{% if livro.disponivel %}status-disponivel{% else %}status-emprestado{% endif %}">
+                        {% if livro.disponivel %}Disponível{% else %}Emprestado{% endif %}
+                    </td>
+                    <td>
+                        {% if livro.disponivel %}
+                        <a href="{{ url_for('emprestimo', livro_id=livro.id) }}">Empréstimo</a>
+                        {% else %}
+                        <a href="{{ url_for('devolucao', livro_id=livro.id) }}">Devolução</a>
+                        {% endif %}
+                        <a href="{{ url_for('remover_livro', livro_id=livro.id) }}" class="btn-remover">Remover</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+	
+	<a href="{{ url_for('index') }}" class="btn">Voltar</a>
+	
+    </div>
+</body>
+</html>
